@@ -240,44 +240,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   ///
-  Widget _buildNavigateToNextPageButton() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: BlocBuilder(
-          bloc: _bloc,
-          builder: (BuildContext context, HomeState state) {
-            bool enabled = (state is! LoadingDataHomeState) &&
-                (state.identifier != null && state.identifier!.isNotEmpty);
-            return ButtonNextAction(
-              key: CustomWidgetsKeys.homeScreenButtonNextAction,
-              enabled: enabled,
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.authPath);
-              },
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  ///
-  Widget _buildSignMessageSection() {
-    return BlocBuilder(
-      bloc: _bloc,
-      builder: (BuildContext context, HomeState state) {
-        if (state.identifier == null || state.identifier!.isEmpty) {
-          return const SizedBox.shrink();
-        }
-        return SignWidget();
-      },
-      buildWhen: (_, currentState) => currentState is LoadedIdentifierHomeState,
-    );
-  }
-
-  ///
   Widget _buildFeaturesSection() {
     return ListView(
       shrinkWrap: true,
